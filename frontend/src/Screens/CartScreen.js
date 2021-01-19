@@ -5,7 +5,7 @@ import {
   Col,
   ListGroup,
   Image,
-  Form,
+  FormControl,
   Button,
   Card,
 } from "react-bootstrap";
@@ -35,6 +35,10 @@ const CartScreen = ({ match, location, history }) => {
     }
   }, [dispatch, productId, qty]);
 
+  const removeFromCartHandler = (id) => {
+    console.log("removed");
+  };
+
   return (
     <Row>
       <Col md={2}>
@@ -50,6 +54,34 @@ const CartScreen = ({ match, location, history }) => {
                 <Row>
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
+                  </Col>
+                  <Col md={3}>
+                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                  </Col>
+                  <Col md={2}>${item.price}</Col>
+                  <Col md={2}>
+                    <FormControl
+                      as="select"
+                      value={qty}
+                      onChange={(e) => {
+                        dispatch(
+                          addToCart(item.product, Number(e.target.value))
+                        );
+                      }}
+                    >
+                      {[...Array(item.countInStock).keys()].map((x) => (
+                        <option key={x + 1} value={x + 1}>
+                          {x + 1}
+                        </option>
+                      ))}
+                    </FormControl>
+                  </Col>
+                  <Col md={2}>
+                    <Button
+                      type="button"
+                      variant="flush"
+                      onClick={() => removeFromCartHandler(item.product)}
+                    ></Button>
                   </Col>
                 </Row>
               </ListGroup.Item>
