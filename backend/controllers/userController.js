@@ -8,7 +8,7 @@ import User from "../models/userModel.js";
 const authUser = asynchandler(async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {
     res.json({
@@ -21,12 +21,12 @@ const authUser = asynchandler(async (req, res) => {
     });
   } else {
     res.status(401);
-    throw new Error("invalid email or password");
+    throw new Error("Invalid email or password");
   }
 });
 
 //@desc register a new user
-//@route POST /api/users/
+//@route POST /api/users
 //@access Public
 const registerUser = asynchandler(async (req, res) => {
   const { name, email, password } = req.body;

@@ -6,6 +6,7 @@ import Header from "./components/Header";
 import HomeScreen from "./Screens/HomeScreen";
 import ProductScreen from "./Screens/ProductScreen";
 import CartScreen from "./Screens/CartScreen";
+import LoginScreen from "./Screens/LoginScreen";
 
 /**
  * @author
@@ -18,6 +19,7 @@ const App = (props) => {
       <Header />
       <main className="py-3">
         <Container>
+          <Route path="/login" component={LoginScreen} />
           <Route path="/" component={HomeScreen} exact />
           <Route path="/product/:id" component={ProductScreen} exact />
           <Route path="/cart/:id?" component={CartScreen} exact />
