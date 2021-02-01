@@ -91,7 +91,7 @@ const updateProduct = asynchandler(async (req, res) => {
 });
 
 //@desc create a product review
-//@route PUT /api/products/:id/review
+//@route POST /api/products/:id/review
 //@access Private
 const createProductReview = asynchandler(async (req, res) => {
   const { rating, comment } = req.body;
@@ -115,11 +115,10 @@ const createProductReview = asynchandler(async (req, res) => {
     };
 
     product.reviews.push(review);
-    product.numReviews = product.reviews.lenght;
+    product.numReviews = product.reviews.length;
     product.rating =
-      product.reviews.reduce((acc, item) => {
-        item.rating + acc;
-      }, 0) / product.reviews.lenght;
+      product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+      product.reviews.length;
 
     await product.save();
     res.status(201).json({ message: "review added" });
